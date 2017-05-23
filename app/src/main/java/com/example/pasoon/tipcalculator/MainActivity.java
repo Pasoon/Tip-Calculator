@@ -5,7 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.TextView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -16,17 +19,20 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+            Fragment frag = null;
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+                    frag = HomeFragment.newInstance("Home", "Home");
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_stip);
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_settings);
+                case R.id.navigation_settings:
+                    frag = HomeFragment.newInstance("Settings", "Settings");
                     return true;
             }
+
+            android.app.FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            //transaction.replace(R.id.content, frag);
+            transaction.commit();
             return false;
         }
 
