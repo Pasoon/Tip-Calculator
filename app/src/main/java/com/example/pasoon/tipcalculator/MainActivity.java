@@ -1,5 +1,6 @@
 package com.example.pasoon.tipcalculator;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -10,6 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,11 +72,38 @@ public class MainActivity extends AppCompatActivity {
         EditText tipPercentage = (EditText)findViewById(R.id.TipPercentage);
         EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
 
-        Double billAmountDouble = Double.parseDouble(billAmount.getText().toString());
-        Double tipPercentageDouble = Double.parseDouble(tipPercentage.getText().toString());
-        int numberOfPplInt = Integer.parseInt(numberOfPpl.getText().toString());
+        System.out.println("CHECK THIS" +billAmount);
 
-        tipCalculations(billAmountDouble, tipPercentageDouble, numberOfPplInt);
+        String bA = billAmount.getText().toString();
+        String tP = tipPercentage.getText().toString();
+        String nP = numberOfPpl.getText().toString();
+
+        if(bA.matches("") || tP.matches("") || nP.matches("")) {
+            Context context = getApplicationContext();
+            CharSequence text = "Please fill in all required values.";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+        }
+
+        else{
+        Double billAmountDouble = Double.parseDouble(bA);
+        Double tipPercentageDouble = Double.parseDouble(tP);
+        int numberOfPplInt = Integer.parseInt(nP);
+
+            tipCalculations(billAmountDouble, tipPercentageDouble, numberOfPplInt);
+
+            System.out.println("tip Amount: "+tipAmount);
+            System.out.println("tip per person: "+tipPerPerson);
+
+            if(tipAmount != null){
+                SummaryFragment frag = SummaryFragment.newInstance();
+                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.container, frag, frag.getTag());
+                ft.commit();
+            }
+        }
 
     }
 
@@ -86,10 +116,7 @@ public class MainActivity extends AppCompatActivity {
         tipPerPerson = tipAmount/numberOfPpl;
         }
 
-        System.out.println("tip Amount: "+tipAmount);
-        System.out.println("tip per person: "+tipPerPerson);
-
-
     }
+
 
 }
