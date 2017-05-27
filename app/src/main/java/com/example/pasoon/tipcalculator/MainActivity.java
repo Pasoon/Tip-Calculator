@@ -18,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Double tipAmount;
     private Double tipPerPerson;
+    private Double billPerPerson;
+    private Double personPays;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -69,7 +71,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("Test", "TIP IT CLICKED!!!!");
 
         EditText billAmount = (EditText)findViewById(R.id.BillAmount);
+        System.out.println("CHECK THIS" +billAmount);
         EditText tipPercentage = (EditText)findViewById(R.id.TipPercentage);
+        System.out.println("CHECK THIS" +billAmount);
         EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
 
         System.out.println("CHECK THIS" +billAmount);
@@ -78,7 +82,11 @@ public class MainActivity extends AppCompatActivity {
         String tP = tipPercentage.getText().toString();
         String nP = numberOfPpl.getText().toString();
 
-        if(bA.matches("") || tP.matches("") || nP.matches("")) {
+        if(nP.matches("")){
+            nP = "1";
+        }
+
+        if(bA.matches("") || tP.matches("")) {
             Context context = getApplicationContext();
             CharSequence text = "Please fill in all required values.";
             int duration = Toast.LENGTH_SHORT;
@@ -94,11 +102,18 @@ public class MainActivity extends AppCompatActivity {
 
             tipCalculations(billAmountDouble, tipPercentageDouble, numberOfPplInt);
 
-            System.out.println("tip Amount: "+tipAmount);
-            System.out.println("tip per person: "+tipPerPerson);
-
             if(tipAmount != null){
+
                 SummaryFragment frag = SummaryFragment.newInstance();
+                Bundle args = new Bundle();
+                args.putDouble("Bill Amount", billAmountDouble);
+                args.putDouble("Tip Amount", tipAmount);
+                if(numberOfPplInt > 1){
+                    args.putDouble("Tip Per Person", tipPerPerson);
+                    args.putDouble("Each Person Pays", personPays);
+                }
+
+                frag.setArguments(args);
                 FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.container, frag, frag.getTag());
                 ft.commit();
@@ -113,7 +128,10 @@ public class MainActivity extends AppCompatActivity {
         tipAmount = billAmount * tipPercentage;
 
         if(numberOfPpl > 1) {
-        tipPerPerson = tipAmount/numberOfPpl;
+            tipPerPerson = tipAmount/numberOfPpl;
+            billPerPerson = billAmount/numberOfPpl;
+            personPays = tipPerPerson + billPerPerson;
+
         }
 
     }
