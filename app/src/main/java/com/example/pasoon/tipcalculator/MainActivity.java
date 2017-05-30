@@ -1,11 +1,13 @@
 package com.example.pasoon.tipcalculator;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -19,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     private Double tipPerPerson;
     private Double billPerPerson;
     private Double personPays;
+    private Fragment frag;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -33,15 +36,18 @@ public class MainActivity extends AppCompatActivity {
     };
 
     private void selectFragment(MenuItem item){
-        Fragment frag = null;
+        frag = null;
         switch (item.getItemId()) {
             case R.id.navigation_home:
                 frag = HomeFragment.newInstance();
-                Log.i("yes","HomeFragment HERE!");
                 break;
+
+            case R.id.navigation_stip:
+                frag = SuggestTipFragment.newInstance();
+                break;
+
             case R.id.navigation_settings:
                 frag = SettingsFragment.newInstance();
-                Log.i("yes","SettingsFragment HERE!");
                 break;
         }
 
@@ -63,17 +69,24 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.container, frag, frag.getTag());
         ft.commit();
 
+    }
+
+    public void updateSettingsButtonClicked(View v){
+
+//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+//        SharedPreferences.Editor editor = preferences.edit();
+//        CT = preferences.getString("CurrencyType", "");
+//        DTP = preferences.getString("DefaultTipPercentage", "");
+
+
 
     }
 
 
     public void calculateButtonClicked(View v){
-        Log.i("Test", "TIP IT CLICKED!!!!");
 
         EditText billAmount = (EditText)findViewById(R.id.BillAmount);
-        System.out.println("CHECK THIS" +billAmount);
         EditText tipPercentage = (EditText)findViewById(R.id.TipPercentage);
-        System.out.println("CHECK THIS" +billAmount);
         EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
 
         System.out.println("CHECK THIS" +billAmount);
@@ -104,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             if(tipAmount != null){
 
-                SummaryFragment frag = SummaryFragment.newInstance();
+                SummaryFragment frag = new SummaryFragment();
                 Bundle args = new Bundle();
                 args.putDouble("Bill Amount", billAmountDouble);
                 args.putDouble("Tip Amount", tipAmount);
@@ -113,10 +126,11 @@ public class MainActivity extends AppCompatActivity {
                     args.putDouble("Each Person Pays", personPays);
                 }
 
+
+                frag.setCancelable(true);
                 frag.setArguments(args);
-                FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.container, frag, frag.getTag());
-                ft.commit();
+                frag.show(getSupportFragmentManager(), frag.getTag());
+
             }
         }
 
@@ -135,6 +149,8 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+    public void checkOutBtnClicked(View v){
 
+    }
 
 }

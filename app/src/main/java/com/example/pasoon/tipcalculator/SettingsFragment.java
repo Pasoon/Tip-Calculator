@@ -1,5 +1,7 @@
 package com.example.pasoon.tipcalculator;
 
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -33,7 +35,7 @@ public class SettingsFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Spinner CurrencySpinner = (Spinner) rootView.findViewById(R.id.CurrencySpinner);
-        String[] items = new String[]{"USD ($)", "EUROS (\u20ac)", "POUNDS(\u00a3)"};
+        String[] items = new String[]{"$", "\u20ac", "\u00a3"};
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
         CurrencySpinner.setAdapter(adapter);
@@ -41,14 +43,15 @@ public class SettingsFragment extends Fragment {
         Spinner CurrencyType = (Spinner)rootView.findViewById(R.id.CurrencySpinner);
         String CT = CurrencyType.getSelectedItem().toString();
 
-
         EditText DefaultTipPercentage = (EditText)rootView.findViewById(R.id.DefaultTipPercentage);
         String DTP = DefaultTipPercentage.getText().toString();
 
-        Bundle args = new Bundle();
-        args.putString("CurrencyType", CT);
-        args.putString("Tip Amount", DTP);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences.Editor editor = preferences.edit();
 
+        editor.putString("CurrencyType",CT);
+        editor.putString("DefaultTipPercentage",DTP);
+        editor.apply();
 
         return rootView;
     }

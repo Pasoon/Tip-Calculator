@@ -3,8 +3,13 @@
 
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+        android:icon="@drawable/ic_receipt_black_24dp"
+        android:title="Tip It" />
+
+    <item
+        android:id="@+id/navigation_stip"
+        android:icon="@drawable/ic_thumbs_up_down_black_18dp"
+        android:title="Suggest a Tip"/>
 
     <item
         android:id="@+id/navigation_settings"
