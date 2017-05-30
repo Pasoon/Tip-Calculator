@@ -1,5 +1,6 @@
 package com.example.pasoon.tipcalculator;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -32,12 +34,12 @@ public class SettingsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
 
         Spinner CurrencySpinner = (Spinner) rootView.findViewById(R.id.CurrencySpinner);
         String[] items = new String[]{"$", "\u20ac", "\u00a3"};
         ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
+        adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
         CurrencySpinner.setAdapter(adapter);
 
         Spinner CurrencyType = (Spinner)rootView.findViewById(R.id.CurrencySpinner);
@@ -45,13 +47,15 @@ public class SettingsFragment extends Fragment {
 
         EditText DefaultTipPercentage = (EditText)rootView.findViewById(R.id.DefaultTipPercentage);
         String DTP = DefaultTipPercentage.getText().toString();
-
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
 
         editor.putString("CurrencyType",CT);
         editor.putString("DefaultTipPercentage",DTP);
         editor.apply();
+
+        System.out.println(CT);
+        System.out.println(DTP);
 
         return rootView;
     }

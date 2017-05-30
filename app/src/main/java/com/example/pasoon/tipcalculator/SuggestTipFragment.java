@@ -1,6 +1,9 @@
 package com.example.pasoon.tipcalculator;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -36,6 +39,9 @@ public class SuggestTipFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_stip, container, false);
 
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        final SharedPreferences.Editor editor = preferences.edit();
+
         final TextView SuggestedTip = (TextView)rootView.findViewById(SuggestTip);
         RatingBar rb = (RatingBar) rootView.findViewById(R.id.ratingbar);
 
@@ -44,11 +50,18 @@ public class SuggestTipFragment extends Fragment {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float rating,
                                         boolean fromUser) {
-                    double TipPercentage = (double) (rating*2)+10;
-                    String TP = Double.toString(TipPercentage);
+                    int TipPercentage = (int) (rating*2)+10;
+                    String TP = Integer.toString(TipPercentage);
                     SuggestedTip.setText(TP+"%");
+
+                    editor.putString("DefaultTipPercentage",TP);
+                    editor.apply();
+
+
             }
         });
+
+
 
 
         return rootView;

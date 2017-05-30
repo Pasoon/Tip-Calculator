@@ -6,13 +6,15 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -69,15 +71,45 @@ public class MainActivity extends AppCompatActivity {
         ft.replace(R.id.container, frag, frag.getTag());
         ft.commit();
 
+
+    }
+
+    //Minimizes keyboard when touch on screen
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        View view = getCurrentFocus();
+        if (view != null && (ev.getAction() == MotionEvent.ACTION_UP || ev.getAction() == MotionEvent.ACTION_MOVE) && view instanceof EditText && !view.getClass().getName().startsWith("android.webkit.")) {
+            int scrcoords[] = new int[2];
+            view.getLocationOnScreen(scrcoords);
+            float x = ev.getRawX() + view.getLeft() - scrcoords[0];
+            float y = ev.getRawY() + view.getTop() - scrcoords[1];
+            if (x < view.getLeft() || x > view.getRight() || y < view.getTop() || y > view.getBottom())
+                ((InputMethodManager) this.getSystemService(Context.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow((this.getWindow().getDecorView().getApplicationWindowToken()), 0);
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
     public void updateSettingsButtonClicked(View v){
+        Spinner mSpinner = (Spinner) findViewById(R.id.CurrencySpinner);
+        String CT = mSpinner.getSelectedItem().toString();
+        EditText DefaultTipPercentage = (EditText) findViewById(R.id.DefaultTipPercentage);
+        String DTP = DefaultTipPercentage.getText().toString();
 
-//        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-//        SharedPreferences.Editor editor = preferences.edit();
-//        CT = preferences.getString("CurrencyType", "");
-//        DTP = preferences.getString("DefaultTipPercentage", "");
+        System.out.println("THIS ONE: "+CT);
+        System.out.println("ZARIF: "+DTP);
 
+        SharedPreferences preferences = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("CurrencyType", CT);
+        editor.putString("DefaultTipPercentage", DTP);
+        editor.apply();
+
+        Context context = getApplicationContext();
+        CharSequence text = "Settings Updated!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
 
 
     }
@@ -88,8 +120,6 @@ public class MainActivity extends AppCompatActivity {
         EditText billAmount = (EditText)findViewById(R.id.BillAmount);
         EditText tipPercentage = (EditText)findViewById(R.id.TipPercentage);
         EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
-
-        System.out.println("CHECK THIS" +billAmount);
 
         String bA = billAmount.getText().toString();
         String tP = tipPercentage.getText().toString();

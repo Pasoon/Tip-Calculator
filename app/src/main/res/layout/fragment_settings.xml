@@ -21,8 +21,7 @@
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_height="59dp"
                 android:gravity="center_horizontal"
                 android:text="Settings"
                 android:textSize="30dp" />
@@ -30,45 +29,49 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="54dp"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="5.80"
                 android:text="Currency Type: "
-                android:textSize="15dp" />
+                android:textSize="25dp"
+                android:layout_weight="0.35" />
 
             <Spinner
                 android:id="@+id/CurrencySpinner"
-                android:layout_width="227dp"
-                android:layout_height="wrap_content" />
+                android:layout_width="167dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.09" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="70dp"
             android:gravity="center_horizontal"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:weightSum="1">
 
             <TextView
-                android:layout_width="187dp"
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Set Default Tip Percentage:" />
+                android:text="Default Tip Percentage:"
+                android:textSize="25dp"
+                android:layout_weight="0.38" />
 
             <EditText
                 android:id="@+id/DefaultTipPercentage"
-                android:layout_width="wrap_content"
+                android:layout_width="92dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.38"
                 android:ems="10"
                 android:hint="Enter Value Here"
-                android:inputType="textPersonName"
-                android:text="0" />
+                android:inputType="number|numberDecimal" />
 
         </LinearLayout>
 
@@ -78,10 +81,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/updateButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="0.67"
                 android:onClick="updateSettingsButtonClicked"
                 android:text="Update Settings" />
         </LinearLayout>

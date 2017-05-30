@@ -1,6 +1,7 @@
 package com.example.pasoon.tipcalculator;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
@@ -32,16 +33,17 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         String CT = preferences.getString("CurrencyType", "");
         String DTP = preferences.getString("DefaultTipPercentage", "");
-        System.out.println(CT);
-        System.out.println(DTP);
 
+        System.out.println("HomeFragment: "+CT);
+        System.out.println("HomeFragment: "+DTP);
 
-
-        //billAmount.setHint("Bill Amount in "+CT);
-        //tipPercentage.setText(DTP);
+        EditText billAmount = (EditText)rootView.findViewById(R.id.BillAmount);
+        EditText tipPercentage = (EditText)rootView.findViewById(R.id.TipPercentage);
+        billAmount.setHint("Bill Amount in "+CT);
+        tipPercentage.setText(DTP);
 
         return rootView;
     }
