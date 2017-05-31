@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         ft.commit();
 
 
+
     }
 
     //Minimizes keyboard when touch on screen

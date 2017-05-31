@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context="com.example.pasoon.tipcalculator.SummaryFragment">
+    tools:context="com.example.pasoon.tipcalculator.SummaryFragment"
+    android:background="@drawable/backgroundingeneral">
+
 
     <!-- TODO: Update blank fragment layout -->
 

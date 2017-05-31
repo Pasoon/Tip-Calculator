@@ -1,6 +1,7 @@
 package com.example.pasoon.tipcalculator;
 
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -23,15 +25,10 @@ public class SummaryFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+        SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
+        
         String CT = preferences.getString("CurrencyType", "");
 
-//        DisplayMetrics dm = new DisplayMetrics();
-//        getActivity().getWindowManager().getDefaultDisplay().getMetrics(dm);
-//
-//        int width = (int)(dm.widthPixels*0.7);
-//        int height = (int)(dm.heightPixels*0.7);
-//        getDialog().getWindow().setLayout(width,height);
 
         Double billAmount = getArguments().getDouble("Bill Amount");
         Double tipAmount = getArguments().getDouble("Tip Amount");
