@@ -3,6 +3,7 @@ package com.example.pasoon.tipcalculator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v4.app.DialogFragment;
 import android.os.Bundle;
@@ -11,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 
@@ -25,6 +28,8 @@ public class SummaryFragment extends DialogFragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
 
+        Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(),"licon.ttf");
+
         SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         
         String CT = preferences.getString("CurrencyType", "");
@@ -36,30 +41,61 @@ public class SummaryFragment extends DialogFragment {
         Double tipPerPerson = getArguments().getDouble("Tip Per Person");
         Double personPays = getArguments().getDouble("Each Person Pays");
 
+        TextView title = (TextView) rootView.findViewById(R.id.SummaryTitle);
+        title.setTypeface(myTypeface);
+        title.setTextSize(70);
+
+        TextView billAmountHeader = (TextView) rootView.findViewById(R.id.textViewBA);
+        TextView tipAmountHeader = (TextView) rootView.findViewById(R.id.textViewTA);
+        TextView totalAmountHeader = (TextView) rootView.findViewById(R.id.textViewTotal);
+        TextView tipPerPersonHeader = (TextView) rootView.findViewById(R.id.textViewTPP);
+        TextView personPaysHeader = (TextView) rootView.findViewById(R.id.textViewEPP);
 
         TextView billAmountText = (TextView) rootView.findViewById(R.id.BillAmountValue);
         TextView tipAmountText = (TextView)rootView.findViewById(R.id.TipAmountValue);
         TextView totalAmountText = (TextView)rootView.findViewById(R.id.TotalAmountValue);
-
         TextView tipPerPersonText = (TextView)rootView.findViewById(R.id.TipPerPersonValue);
         TextView personPaysText = (TextView)rootView.findViewById(R.id.EachPersonPaysValue);
 
-        TextView tipPerPersonCaption = (TextView)rootView.findViewById(R.id.textView7);
-        TextView personPaysCaption = (TextView)rootView.findViewById(R.id.textView8);
+        billAmountHeader.setTypeface(myTypeface);
+        billAmountHeader.setTextSize(35);
+        tipAmountHeader.setTypeface(myTypeface);
+        tipAmountHeader.setTextSize(35);
+        totalAmountHeader.setTypeface(myTypeface);
+        totalAmountHeader.setTextSize(35);
+        tipPerPersonHeader.setTypeface(myTypeface);
+        tipPerPersonHeader.setTextSize(35);
+        personPaysHeader.setTypeface(myTypeface);
+        personPaysHeader.setTextSize(35);
+
+        billAmountText.setTypeface(myTypeface);
+        billAmountText.setTextSize(35);
+        tipAmountText.setTypeface(myTypeface);
+        tipAmountText.setTextSize(35);
+        totalAmountText.setTypeface(myTypeface);
+        totalAmountText.setTextSize(35);
+        tipPerPersonText.setTypeface(myTypeface);
+        tipPerPersonText.setTextSize(35);
+        personPaysText.setTypeface(myTypeface);
+        personPaysText.setTextSize(35);
 
 
-        if(tipPerPerson != null){
-            billAmountText.setText(new DecimalFormat("##.##").format(Double.parseDouble(billAmount.toString()))+CT);
-            tipAmountText.setText(new DecimalFormat("##.##").format(Double.parseDouble(tipAmount.toString()))+CT);
-            totalAmountText.setText(new DecimalFormat("##.##").format(Double.parseDouble(totalAmount.toString()))+CT);
-            tipPerPersonText.setText(new DecimalFormat("##.##").format(Double.parseDouble(tipPerPerson.toString()))+CT);
-            personPaysText.setText(new DecimalFormat("##.##").format(Double.parseDouble(personPays.toString()))+CT);
+
+
+        if(tipPerPerson != 0){
+            billAmountText.setText("................"+new DecimalFormat("##.##").format(Double.parseDouble(billAmount.toString()))+CT);
+            tipAmountText.setText("..................."+new DecimalFormat("##.##").format(Double.parseDouble(tipAmount.toString()))+CT);
+            totalAmountText.setText("..................................."+new DecimalFormat("##.##").format(Double.parseDouble(totalAmount.toString()))+CT);
+            tipPerPersonText.setText(".............."+new DecimalFormat("##.##").format(Double.parseDouble(tipPerPerson.toString()))+CT);
+            personPaysText.setText("."+new DecimalFormat("##.##").format(Double.parseDouble(personPays.toString()))+CT);
         }
 
         else{
-            billAmountText.setText(billAmount.toString());
-            tipAmountText.setText(tipAmount.toString());
-            totalAmountText.setText(totalAmount.toString());
+            billAmountText.setText("................"+new DecimalFormat("##.##").format(Double.parseDouble(billAmount.toString()))+CT);
+            tipAmountText.setText("..................."+new DecimalFormat("##.##").format(Double.parseDouble(tipAmount.toString()))+CT);
+            totalAmountText.setText("..................................."+new DecimalFormat("##.##").format(Double.parseDouble(totalAmount.toString()))+CT);
+            tipPerPersonHeader.setText("");
+            personPaysHeader.setText("");
             tipPerPersonText.setText("");
             personPaysText.setText("");
         }

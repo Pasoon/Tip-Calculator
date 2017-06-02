@@ -2,6 +2,7 @@ package com.example.pasoon.tipcalculator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     private Double billPerPerson;
     private Double personPays;
     private Fragment frag;
+    private int ppl;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -180,6 +182,39 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+    public void addPersonBtnClicked(View v){
+        System.out.println("Here1");
+        EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
+        System.out.println("Here2: "+numberOfPpl);
+        String numOfPpl = numberOfPpl.getText().toString();
+        System.out.println("Here3: "+numOfPpl);
+        if(numOfPpl == "" || numberOfPpl == null){
+            numberOfPpl.setText("1");
+            ppl=1;
+        }
+        else{
+            ppl = ppl + 1;
+            numOfPpl = Integer.toString(ppl);
+            numberOfPpl.setText(numOfPpl);
+        }
+    }
+
+    public void removePersonBtnClicked(View v){
+        EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
+        String numOfPpl = numberOfPpl.getText().toString();
+        if(numOfPpl == "0" || numOfPpl == null){
+
+        }
+
+        else{
+            ppl = ppl - 1;
+            numOfPpl = Integer.toString(ppl);
+            numberOfPpl.setText(numOfPpl);
+        }
+
+    }
+
     public void checkOutBtnClicked(View v){
 
     }

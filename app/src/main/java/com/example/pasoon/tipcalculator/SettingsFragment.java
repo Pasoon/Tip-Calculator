@@ -2,6 +2,7 @@ package com.example.pasoon.tipcalculator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
@@ -12,7 +13,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-
+import android.widget.TextView;
 
 
 /**
@@ -35,6 +36,21 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_settings, container, false);
+
+        Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(),"licon.ttf");
+
+        TextView SettingsTitle = (TextView) rootView.findViewById(R.id.SettingsText);
+        TextView CurrencyTypeTitle = (TextView) rootView.findViewById(R.id.CurrencyTypeText);
+        TextView DefaultTipPercentageTitle = (TextView) rootView.findViewById(R.id.DefaultTipPercentageText);
+
+        SettingsTitle.setTypeface(myTypeface);
+        SettingsTitle.setTextSize(70);
+        CurrencyTypeTitle.setTypeface(myTypeface);
+        CurrencyTypeTitle.setTextSize(50);
+        DefaultTipPercentageTitle.setTypeface(myTypeface);
+        DefaultTipPercentageTitle.setTextSize(50);
+
+
 
         Spinner CurrencySpinner = (Spinner) rootView.findViewById(R.id.CurrencySpinner);
         String[] items = new String[]{"$", "\u20ac", "\u00a3"};
