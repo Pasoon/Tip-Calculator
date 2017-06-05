@@ -2,9 +2,7 @@ package com.example.pasoon.tipcalculator;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Typeface;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -159,7 +157,6 @@ public class MainActivity extends AppCompatActivity {
                     args.putDouble("Each Person Pays", personPays);
                 }
 
-
                 frag.setCancelable(true);
                 frag.setArguments(args);
                 frag.show(getSupportFragmentManager(), frag.getTag());
@@ -203,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
     public void removePersonBtnClicked(View v){
         EditText numberOfPpl = (EditText)findViewById(R.id.NumberOfPpl);
         String numOfPpl = numberOfPpl.getText().toString();
-        if(numOfPpl == "0" || numOfPpl == null){
+        if(ppl <= 0 || numOfPpl == null ){
 
         }
 
@@ -215,8 +212,5 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void checkOutBtnClicked(View v){
-
-    }
 
 }

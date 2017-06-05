@@ -129,7 +129,6 @@
                 android:id="@+id/textViewTPP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4.87"
                 android:text="Tip Per Person:"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -146,7 +145,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_gravity="bottom"
             android:orientation="horizontal">
 
@@ -154,7 +153,6 @@
                 android:id="@+id/textViewEPP"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="20.58"
                 android:text="Each Person Pays: "
                 android:textColor="@color/white"
                 android:textSize="15dp" />
@@ -167,6 +165,24 @@
                 android:text="Each Person Pays Value"
                 android:textColor="@color/white"
                 android:textSize="15dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="58dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/OkBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_marginRight="100dp"
+                android:layout_weight="0.66"
+                android:background="@color/green"
+                android:onClick="doneBtnClicked"
+                android:text="Ok"
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

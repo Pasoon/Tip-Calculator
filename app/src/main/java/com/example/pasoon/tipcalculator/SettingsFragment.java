@@ -3,7 +3,6 @@ package com.example.pasoon.tipcalculator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -42,26 +41,29 @@ public class SettingsFragment extends Fragment {
         TextView SettingsTitle = (TextView) rootView.findViewById(R.id.SettingsText);
         TextView CurrencyTypeTitle = (TextView) rootView.findViewById(R.id.CurrencyTypeText);
         TextView DefaultTipPercentageTitle = (TextView) rootView.findViewById(R.id.DefaultTipPercentageText);
+        Button UpdateSettings = (Button) rootView.findViewById(R.id.updateButton);
+
+        UpdateSettings.setTypeface(myTypeface);
+        UpdateSettings.setTextSize(40);
 
         SettingsTitle.setTypeface(myTypeface);
         SettingsTitle.setTextSize(70);
         CurrencyTypeTitle.setTypeface(myTypeface);
-        CurrencyTypeTitle.setTextSize(50);
+        CurrencyTypeTitle.setTextSize(30);
         DefaultTipPercentageTitle.setTypeface(myTypeface);
-        DefaultTipPercentageTitle.setTextSize(50);
+        DefaultTipPercentageTitle.setTextSize(30);
 
 
 
-        Spinner CurrencySpinner = (Spinner) rootView.findViewById(R.id.CurrencySpinner);
+        Spinner CurrencyType = (Spinner) rootView.findViewById(R.id.CurrencySpinner);
         String[] items = new String[]{"$", "\u20ac", "\u00a3"};
         ArrayAdapter<String> adapter;
         adapter = new ArrayAdapter(this.getActivity(), android.R.layout.simple_spinner_dropdown_item, items);
-        CurrencySpinner.setAdapter(adapter);
-
-        Spinner CurrencyType = (Spinner)rootView.findViewById(R.id.CurrencySpinner);
+        CurrencyType.setAdapter(adapter);;
         String CT = CurrencyType.getSelectedItem().toString();
 
         EditText DefaultTipPercentage = (EditText)rootView.findViewById(R.id.DefaultTipPercentage);
+        DefaultTipPercentage.setTypeface(myTypeface);
         String DTP = DefaultTipPercentage.getText().toString();
         SharedPreferences preferences = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();

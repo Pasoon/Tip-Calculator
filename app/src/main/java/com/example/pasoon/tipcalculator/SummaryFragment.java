@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -26,7 +27,7 @@ public class SummaryFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_summary, container, false);
 
         Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(),"licon.ttf");
 
@@ -34,12 +35,21 @@ public class SummaryFragment extends DialogFragment {
         
         String CT = preferences.getString("CurrencyType", "");
 
-
         Double billAmount = getArguments().getDouble("Bill Amount");
         Double tipAmount = getArguments().getDouble("Tip Amount");
         Double totalAmount = billAmount + tipAmount;
         Double tipPerPerson = getArguments().getDouble("Tip Per Person");
         Double personPays = getArguments().getDouble("Each Person Pays");
+        Button done = (Button)rootView.findViewById(R.id.OkBtn);
+        done.setTypeface(myTypeface);
+        done.setTextSize(50);
+
+        done.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dismiss();
+            }
+        });
 
         TextView title = (TextView) rootView.findViewById(R.id.SummaryTitle);
         title.setTypeface(myTypeface);
@@ -86,8 +96,8 @@ public class SummaryFragment extends DialogFragment {
             billAmountText.setText("................"+new DecimalFormat("##.##").format(Double.parseDouble(billAmount.toString()))+CT);
             tipAmountText.setText("..................."+new DecimalFormat("##.##").format(Double.parseDouble(tipAmount.toString()))+CT);
             totalAmountText.setText("..................................."+new DecimalFormat("##.##").format(Double.parseDouble(totalAmount.toString()))+CT);
-            tipPerPersonText.setText(".............."+new DecimalFormat("##.##").format(Double.parseDouble(tipPerPerson.toString()))+CT);
-            personPaysText.setText("."+new DecimalFormat("##.##").format(Double.parseDouble(personPays.toString()))+CT);
+            tipPerPersonText.setText(" "+new DecimalFormat("##.##").format(Double.parseDouble(tipPerPerson.toString()))+CT);
+            personPaysText.setText(new DecimalFormat("##.##").format(Double.parseDouble(personPays.toString()))+CT);
         }
 
         else{
