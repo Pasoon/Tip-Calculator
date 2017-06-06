@@ -52,6 +52,8 @@ public class HomeFragment extends Fragment {
         Button removePerson = (Button) rootView.findViewById(R.id.removePersonBtn);
         Button tipIt = (Button)rootView.findViewById(R.id.CalculateBtn);
 
+
+
         addPerson.setTypeface(myTypeface);
         removePerson.setTypeface(myTypeface);
         addPerson.setTextSize(60);
